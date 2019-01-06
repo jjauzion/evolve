@@ -1,6 +1,7 @@
 # My Files #
 ############
 src/__pycache__/
+.idea
 
 # Compiled source #
 ###################
