@@ -1,0 +1,1 @@
+MAX_ENTITY = 5000
