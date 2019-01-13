@@ -25,11 +25,11 @@ class Game:
             self.loop = False
         elif event.type == const.MOUSEBUTTONUP and event.button == 1:
             self.universe.create_new_entity(event.pos, 20)
+            self.update_screen()
 
     def start(self):
         self.prepare()
         while self.loop:
             for event in pygame.event.get():
                 self.process_event(event)
-            self.update_screen()
             pygame.display.flip()

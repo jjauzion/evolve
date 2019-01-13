@@ -6,5 +6,7 @@ class Draw:
         for entity in entity_list:
             color = (0, 0, 0)
             position = entity.component["position"].get_position()
-            radius = entity.component["visible"].size
-            entity.component["visible"].draw(screen, color, position, radius, radius)
+            radius = entity.component["physic"].size
+            vector = entity.component["velocity"].vector
+            polar_vector = entity.component["velocity"].polar_vector
+            entity.component["visible"].draw(screen, color, position, radius, radius, vector, polar_vector)
