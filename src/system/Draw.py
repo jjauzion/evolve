@@ -1,9 +1,8 @@
 class Draw:
 
-    def draw(self, entity, screen):
-        entity_list = entity if isinstance(entity, list) else [entity]
-        entity_list = [ent for ent in entity_list if "visible" in ent.component]
-        for entity in entity_list:
+    def draw(self, entity_list, screen):
+        draw_list = [ent for _, ent in entity_list.items() if "visible" in ent.component]
+        for entity in draw_list:
             color = (0, 0, 0)
             position = entity.component["position"].get_position()
             radius = entity.component["physic"].size
