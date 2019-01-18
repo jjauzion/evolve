@@ -21,10 +21,12 @@ class Universe:
         self.last_id += 1
         return self.last_id
 
-    def create_new_entity(self, position, size):
-        x = size * math.cos(self.theta)
-        y = size * math.sin(self.theta)
-        new = Cell.Cell(cell_id=self._get_new_id(), position=position, size=size, vector=(x, y), life=100, regen=0)
+    def create_new_entity(self, position, size, speed_vect=(0, 0), life=100, regen=0):
+        if not speed_vect:
+            x = size * math.cos(self.theta)
+            y = size * math.sin(self.theta)
+            speed_vect = (x, y)
+        new = Cell.Cell(cell_id=self._get_new_id(), position=position, size=size, vector=speed_vect, life=life, regen=regen)
         self.add_entity(new)
         self.theta += 0.1 if self.theta <= 2 * math.pi else -self.theta
 

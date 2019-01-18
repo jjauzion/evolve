@@ -37,6 +37,7 @@ class Game:
     def prepare(self):
         pygame.key.set_repeat(200, 50)
         self.cycle = 0
+        self.universe.create_new_entity((320, 300), 20, (0, 0), 100, 0)
 
     def update_screen(self):
         pygame.draw.rect(self.screen, (255, 255, 255), (0, 0) + self.screen.get_size())
@@ -46,7 +47,7 @@ class Game:
         if event.type == const.QUIT or (event.type == const.KEYUP and event.key == const.K_ESCAPE):
             self.cycle = -1
         elif event.type == const.MOUSEBUTTONUP and event.button == 1:
-            self.universe.create_new_entity(event.pos, 20)
+            self.universe.create_new_entity(event.pos, 20, None, 100, 0)
 
     def exe_cycle(self):
         before = time.time()

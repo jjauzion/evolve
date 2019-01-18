@@ -8,4 +8,4 @@ class Draw:
             radius = entity.component["physic"].size
             vector = entity.component["velocity"].vector
             polar_vector = entity.component["velocity"].polar_vector
-            entity.component["visible"].draw(screen, color, position, radius, radius, vector, polar_vector)
+            entity.component["visible"].draw(screen, color, position, radius, 0, vector, polar_vector)
