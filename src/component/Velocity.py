@@ -35,5 +35,8 @@ class Velocity:
     def _get_polar_vector(self):
         return self._polar_vector
 
+    def get_heading_deg(self):
+        return round(self._polar_vector["theta"] * 180 / math.pi)
+
     polar_vector = property(_get_polar_vector, _set_polar_vector)
     vector = property(_get_vector, _set_vector)
