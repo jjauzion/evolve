@@ -25,8 +25,8 @@ class Universe:
 
     def create_new_entity(self, position, size, speed_vect=(0, 0), life=100, regen=0):
         if not speed_vect:
-            x = size * math.cos(self.theta)
-            y = size * math.sin(self.theta)
+            x = math.cos(self.theta)
+            y = math.sin(self.theta)
             speed_vect = (x, y)
         new = Cell.Cell(cell_id=self._get_new_id(), position=position, size=size, vector=speed_vect, life=life, regen=regen, image="resources/cell.png")
         self.all_sprite.add(new)
