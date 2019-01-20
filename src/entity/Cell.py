@@ -1,4 +1,5 @@
 import pygame
+import math
 
 from src.component import Position
 from src.component import Velocity
@@ -18,10 +19,8 @@ class Cell(pygame.sprite.Sprite):
             "physic": Physic.Physic(size),
             "health": Health.Health(life, regen)
         }
-        heading = self.component["velocity"].get_heading_deg()
-        self.image, self.rect = module_fct.load_image(image, size=(size, size), heading=heading)
-        pygame.draw.line(self.image, (255, 0, 0), self.component["position"].get_position(), (0, 0), 5)
-        self.original = self.image
+        heading = self.component["velocity"].get_heading_rad()
+        self.image, self.rect = module_fct.create_cell_image((255, 255, 255), (255, 0, 0), size, heading)
         self.rect.center = position
 
     def __str__(self):

@@ -54,7 +54,7 @@ class Game:
 
     def exe_cycle(self):
         before = time.time()
-        print(self.__str__())
+        #print(self.__str__())
         self.move.move_entity(self.universe.all_sprite)
         self.ageing.ageing(entity_list=self.universe.all_sprite, cycle=self.cycle)
         self.death.death(self.universe.all_sprite)
@@ -62,7 +62,7 @@ class Game:
         self.cycle += 1
         for event in pygame.event.get():
             self.process_event(event)
-        print("cycle {} took {}s to run".format(self.cycle, time.time() - before))
+        #print("cycle {} took {}s to run".format(self.cycle, time.time() - before))
 
     def start(self):
         self.prepare()
