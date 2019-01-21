@@ -6,6 +6,7 @@ from src.system import Universe
 from src.system import Move
 from src.system import Ageing
 from src.system import Death
+from src.system import Collision
 
 
 def timer(funct):
@@ -26,6 +27,7 @@ class Game:
         self.move = Move.Move()
         self.death = Death.Death()
         self.ageing = Ageing.Ageing()
+        self.collision = Collision.Collision()
         self.background = pygame.Surface(screen.get_size()).convert()
         self.background.fill((0, 191, 255))
 
@@ -58,6 +60,8 @@ class Game:
         self.move.move_entity(self.universe.all_sprite)
         self.ageing.ageing(entity_list=self.universe.all_sprite, cycle=self.cycle)
         self.death.death(self.universe.all_sprite)
+        for cell in self.universe.all_sprite:
+            self.collision.collision_with_list(cell, self.universe.all_sprite)
         self.update_screen()
         self.cycle += 1
         for event in pygame.event.get():

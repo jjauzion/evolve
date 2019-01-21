@@ -24,7 +24,7 @@ class Cell(pygame.sprite.Sprite):
         self.rect.center = position
 
     def __str__(self):
-        return "Cell {}: component : {{}}".format(self.id, self.component)
+        return "Cell {}: component : [{}]".format(self.id, self.component)
 
     def update(self, *args):
         self.rect.center = self.component["position"].get_position()
