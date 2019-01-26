@@ -2,6 +2,7 @@ import pygame
 import math
 
 from src.entity import Cell
+from src.constant import *
 
 
 class Universe:
@@ -23,12 +24,14 @@ class Universe:
         self.last_id += 1
         return self.last_id
 
-    def create_new_entity(self, position, size, speed_vect=(0, 0), life=100, regen=0):
+    def create_new_entity(self, position, size, speed_vect=(0, 0), life=100,
+                          regen=0, ageing_factor=CELL_AGEING_FACTOR, ageing_start=CELL_AGEING_START):
         if not speed_vect:
             x = math.cos(self.theta)
             y = math.sin(self.theta)
             speed_vect = (x, y)
-        new = Cell.Cell(cell_id=self._get_new_id(), position=position, size=size, vector=speed_vect, life=life, regen=regen, image="resources/cell.png")
+        new = Cell.Cell(cell_id=self._get_new_id(), position=position, size=size, vector=speed_vect, life=life,
+                        regen=regen, ageing_factor=ageing_factor, ageing_start=ageing_start)
         self.all_sprite.add(new)
         self.theta += 0.1 if self.theta <= 2 * math.pi else -self.theta
 

@@ -44,3 +44,16 @@ def create_cell_image(color_circle, color_line, size, heading):
     x = round(center_y + size * math.cos(heading))
     pygame.draw.line(image, color_line, (center_x, center_y), (x, y), 3)
     return image, image.get_rect()
+
+
+def create_food_image(color, width, height):
+    """
+    create a surface with a circle drawn and a line showing the heading
+    :param color: color of the entity
+    :param width: width of the rectangle
+    :param height: length of the rectangle
+    :return: image as surface, rectangle of the surface
+    """
+    image = pygame.Surface((width, height), SRCALPHA, 32).convert_alpha()
+    pygame.draw.rect(image, color, image.get_rect())
+    return image, image.get_rect()
