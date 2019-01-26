@@ -16,7 +16,7 @@ class Universe:
         for entity in self.all_sprite:
             print("------->", entity)
             string += "\tCell {}: age:{} ; life:{} ; position:{}\n"\
-                .format(entity.id, entity.component["health"].age, entity.component["health"].life, str(entity.component["position"]))
+                .format(entity.id, entity.health.age, entity.health.life, str(entity.position))
         return string
 
     def _get_new_id(self):
