@@ -1,0 +1,8 @@
+name: evolve
+channels:
+  - cogsci
+dependencies:
+  - python=3.6
+  - pip
+  - pip:
+    - pygame
