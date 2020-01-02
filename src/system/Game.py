@@ -24,7 +24,7 @@ class Game:
         self.screen = screen
         self.cycle = 0
         self.universe = Universe.Universe()
-        self.move = Move.Move()
+        self.move = Move.Move(screen_size=(640, 480))
         self.death = Death.Death()
         self.health_system = Health_system.Health_system()
         self.collision = Collision.Collision()
