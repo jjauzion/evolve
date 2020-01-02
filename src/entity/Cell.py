@@ -1,4 +1,5 @@
 import pygame
+import random
 
 from src.component import Position
 from src.component import Velocity
@@ -25,3 +26,5 @@ class Cell(pygame.sprite.Sprite):
 
     def update(self, *args):
         self.rect.center = self.position.get_position()
+
+    def play(self):
