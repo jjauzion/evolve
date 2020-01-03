@@ -23,7 +23,7 @@ class Velocity:
         self._vector = [vector[0], vector[1]]
 
     def _get_vector(self):
-        return self._vector
+        return tuple(self._vector)
 
     def _set_polar_vector(self, polar_vect):
         if "r" not in polar_vect or "theta" not in polar_vect:

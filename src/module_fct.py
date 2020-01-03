@@ -77,3 +77,13 @@ def coord_in_rect(coord, rect):
             return True
     return False
 
+
+def sum_vector(v1, v2):
+    """
+    Compute the sum of two vector and return the resulting vector
+    :param v1:      [tuple] (x, y) coordinate of vector 1
+    :param v2:      [tuple] (x, y) coordinate of vector 2
+    :return:        [tuple] (x, y) coordinate of resulting vector
+    """
+    return v1[0] + v2[0], v1[1] + v2[1]
+
