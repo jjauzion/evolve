@@ -57,3 +57,20 @@ def create_food_image(color, width, height):
     image = pygame.Surface((width, height), SRCALPHA, 32).convert_alpha()
     pygame.draw.rect(image, color, image.get_rect())
     return image, image.get_rect()
+
+
+def coord_in_rect(coord, rect):
+    """
+    check if a point of coordinate 'coord' is within the rectangle 'rect'
+    :param coord:       [tuple of int]  (x, y): coordinate of the point
+    :param rect:        [obj]           Position of the rectangle defined by its top left and bottom right corner.
+                                        rect object shall have the following attributes:
+                                        rect.topleft  = (x, y)
+                                        rect.bottomright  = (x, y)
+    :return:            [bool]          True if 'coord' is in 'rect' ; else return False
+    """
+    if rect.bottomright[0] > coord[0] > rect.topleft[0]:
+        if rect.bottomright[1] > coord[1] > rect.topleft[1]:
+            return True
+    return False
+

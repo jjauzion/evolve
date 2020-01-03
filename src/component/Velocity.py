@@ -5,14 +5,14 @@ class Velocity:
 
     def __init__(self, vector):
         self._polar_vector = {"r": 0., "theta": 0.}
-        self._vector = 0
+        self._vector = [0, 0]
         self._set_vector(vector)
 
     def _set_vector(self, vector):
         try:
             r = math.sqrt(vector[0] ** 2 + vector[1] ** 2)
-        except KeyError:
-            raise KeyError("Velocity vector requires a tuple (x, y) to be set. Got: {}".format(vector))
+        except [KeyError, TypeError]:
+            raise AttributeError("Velocity vector requires a tuple of int (x, y) to be set. Got: {}".format(vector))
 
         if r != 0:
             theta = math.acos(vector[0] / r) if vector[1] >= 0 else -math.acos(vector[0] / r)
@@ -20,7 +20,7 @@ class Velocity:
             theta = 0
         self._polar_vector["r"] = r
         self._polar_vector["theta"] = theta
-        self._vector = vector
+        self._vector = [vector[0], vector[1]]
 
     def _get_vector(self):
         return self._vector

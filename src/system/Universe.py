@@ -32,6 +32,7 @@ class Universe:
             speed_vect = (x, y)
         new = Cell.Cell(cell_id=self._get_new_id(), position=position, size=size, vector=speed_vect, life=life,
                         regen=regen, ageing_factor=ageing_factor, ageing_start=ageing_start)
+        print(f'new cell polar vect = {new.velocity.polar_vector}')
         self.all_sprite.add(new)
         self.theta += 0.1 if self.theta <= 2 * math.pi else -self.theta
 

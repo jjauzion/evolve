@@ -1,12 +1,15 @@
 import pygame
 from pygame import locals as const
 import time
+import random
+import math
 
 from src.system import Universe
 from src.system import Move
 from src.system import Health_system
 from src.system import Death
 from src.system import Collision
+from src import module_fct
 
 
 def timer(funct):
@@ -51,8 +54,16 @@ class Game:
     def process_event(self, event=pygame.event):
         if event.type == const.QUIT or (event.type == const.KEYUP and event.key == const.K_ESCAPE):
             self.cycle = -1
-        elif event.type == const.MOUSEBUTTONUP and event.button == 1:
+        elif event.type == const.MOUSEBUTTONUP and event.button == 3:
             self.universe.create_new_entity(event.pos, 20, None, 100, 0)
+        elif event.type == const.MOUSEBUTTONUP and event.button == 1:
+            print(f'event pos: {event.pos}')
+            for cell in self.universe.all_sprite:
+                print(f'{cell}')
+                if module_fct.coord_in_rect(event.pos, cell.rect):
+                    print(f'Old heading = {cell.velocity.get_heading_deg()}')
+                    cell.change_heading(random.random() * 2 * math.pi)
+                    print(f'New heading = {cell.velocity.get_heading_deg()}')
 
     def exe_cycle(self):
         before = time.time()
@@ -63,6 +74,7 @@ class Game:
         self.death.death(self.universe.all_sprite)
         for cell in self.universe.all_sprite:
             self.collision.collision_with_list(cell, self.universe.all_sprite)
+        self.move.move_entity(self.universe.all_sprite)
         self.update_screen()
         self.cycle += 1
         for event in pygame.event.get():

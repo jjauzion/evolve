@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 from src.component import Position
 from src.component import Velocity
@@ -22,9 +23,17 @@ class Cell(pygame.sprite.Sprite):
         self.rect.center = position
 
     def __str__(self):
-        return "Cell {}: life : [{}]".format(self.id, self.health.life)
+        return f'Cell {self.id}: life : [{self.health.life}] ; position: [{self.rect.topleft}, {self.rect.bottomright}'
 
     def update(self, *args):
         self.rect.center = self.position.get_position()
 
+    def change_heading(self, heading):
+        self.velocity.polar_vector = {
+            "r": self.velocity.polar_vector["r"],
+            "theta": heading
+        }
+
     def play(self):
+        self.change_heading(random.random() * 2 * math.pi)
+        print(f'Cell {self.id} new velocity : {self.velocity.polar_vector}')

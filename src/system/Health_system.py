@@ -8,7 +8,7 @@ class Health_system:
             entity_list = [ent for ent in entity_list if hasattr(ent, "health")]
             for entity in entity_list:
                 entity.health.age += 1
-                if entity.health.age > entity.health.ageing_start:
+                if entity.health.ageing_start is not None and entity.health.age > entity.health.ageing_start:
                     entity.health.max_life -= entity.health.ageing_factor
 
     def update_health(self, entity_list):
