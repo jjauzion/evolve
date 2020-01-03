@@ -20,21 +20,24 @@ def load_image(pic_path, size=None, colorkey=None, heading=None):
     return image, image.get_rect()
 
 
-def rotation_image(image, rect, angle):
-    """rotate an image while keeping its center"""
+def rotate_image(image, angle):
+    """rotate an image while keeping its center and size. Only works for square images."""
+    orig_rect = image.get_rect()
     rot_image = pygame.transform.rotate(image, angle)
-    rot_rect = rot_image.get_rect(center=rect.center)
-    return rot_image, rot_rect
+    rot_rect = orig_rect.copy()
+    rot_rect.center = rot_image.get_rect().center
+    rot_image = rot_image.subsurface(rot_rect).copy()
+    return rot_image
 
 
 def create_cell_image(color_circle, color_line, size, heading):
     """
     create a surface with a circle drawn and a line showing the heading
-    :param color_circle: color of the circle
-    :param color_line: color of the line
-    :param size: diameter of the circle
-    :param heading: heading to show direction
-    :return: image as surface, rectange of the surface
+    :param color_circle:        [tuple (int, int, int)] color of the circle (R, G, B)
+    :param color_line:          [tuple (int, int, int)] color of the line (R, G, B)
+    :param size:                [int]                   diameter of the circle
+    :param heading:             [float]                 heading, in rad, to show direction
+    :return:                    [pygame.Surface, rect]  image as surface, rectangle of the surface
     """
     image = pygame.Surface((size, size), SRCALPHA, 32).convert_alpha()
     center_x = size // 2

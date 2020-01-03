@@ -56,7 +56,7 @@ class Game:
             self.cycle = -1
         elif event.type == const.MOUSEBUTTONUP and event.button == 3:
             self.universe.create_new_entity(event.pos, 20, None, 100, 0)
-        elif event.type == const.MOUSEBUTTONUP and event.button == 1:
+        elif event.type == const.MOUSEBUTTONDOWN and event.button == 1:
             print(f'event pos: {event.pos}')
             for cell in self.universe.all_sprite:
                 print(f'{cell}')

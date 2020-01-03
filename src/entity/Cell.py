@@ -12,7 +12,7 @@ from src import module_fct
 class Cell(pygame.sprite.Sprite):
 
     def __init__(self, cell_id, position, size, vector, life, regen, ageing_factor, ageing_start):
-        pygame.sprite.Sprite.__init__(self)
+        super().__init__()
         self.id = cell_id
         self.position = Position.Position(position)
         self.physic = Physic.Physic(size)
@@ -23,16 +23,21 @@ class Cell(pygame.sprite.Sprite):
         self.rect.center = position
 
     def __str__(self):
-        return f'Cell {self.id}: life : [{self.health.life}] ; position: [{self.rect.topleft}, {self.rect.bottomright}'
+        return f'Cell {self.id}: life : [{self.health.life}] ; position: [{self.rect.topleft}, {self.rect.bottomright}]'
 
     def update(self, *args):
         self.rect.center = self.position.get_position()
 
     def change_heading(self, heading):
+        """
+        Change cell's heading
+        :param heading:     [float] heading in rad
+        """
         self.velocity.polar_vector = {
             "r": self.velocity.polar_vector["r"],
             "theta": heading
         }
+        self.image, _ = module_fct.create_cell_image((255, 255, 255), (255, 0, 0), self.physic.size, heading)
 
     def play(self):
         self.change_heading(random.random() * 2 * math.pi)
