@@ -10,6 +10,7 @@ from src.system import HealthSystem
 from src.system import EnergySystem
 from src.system import Death
 from src.system import Collision
+from src.system import FoodGenerator
 from src import module_fct
 from src.constant import *
 
@@ -28,12 +29,13 @@ class Game:
     def __init__(self, screen):
         self.screen = screen
         self.cycle = 0
-        self.universe = Universe.Universe()
+        self.universe = Universe.Universe(size=SCREEN_SIZE)
         self.move = Move.Move(screen_size=SCREEN_SIZE)
         self.death = Death.Death()
         self.health_system = HealthSystem.HealthSystem()
         self.energy_system = EnergySystem.EnergySystem()
         self.collision = Collision.Collision()
+        self.food_generator = FoodGenerator.FoodGenerator(proba=0.01)
         self.background = pygame.Surface(screen.get_size()).convert()
         self.background.fill((0, 191, 255))
         self.selected_cell = None
@@ -68,9 +70,6 @@ class Game:
                 if module_fct.coord_in_rect(event.pos, cell.rect):
                     self.selected_cell = cell
                     print(f'Cell {cell.id} selected')
-                    # print(f'Old heading = {cell.velocity.get_heading_deg()}')
-                    # cell.change_heading(random.random() * 2 * math.pi)
-                    # print(f'New heading = {cell.velocity.get_heading_deg()}')
         elif self.selected_cell is not None and event.type == const.KEYDOWN and event.key in direction_key:
             if event.key == const.K_UP:
                 self.selected_cell.acceleration.increase_norm(1)
@@ -93,10 +92,11 @@ class Game:
         self.energy_system.update_energy(entity_list=self.universe.living_entity)
         self.health_system.update_health(entity_list=self.universe.living_entity)
         self.health_system.ageing(entity_list=self.universe.living_entity, cycle=self.cycle)
-        self.death.death(self.universe.living_entity)
-        for cell in self.universe.all_sprite:
+        self.death.death(self.universe.living_entity, self.cycle)
+        for cell in self.universe.living_entity:
             self.collision.collision_with_list(cell, self.universe.all_sprite)
         self.move.move_entity(self.universe.all_sprite)
+        self.food_generator.generate(self.universe, cycle=self.cycle)
         self.update_screen()
         self.cycle += 1
         for event in pygame.event.get():
