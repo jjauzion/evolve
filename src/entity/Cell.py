@@ -14,12 +14,11 @@ class Cell(pygame.sprite.Sprite):
         self.position = component.Position(position)
         self.physic = component.Physic(size)
         self.health = component.Health(life, regen, ageing_factor, ageing_start)
-        self.velocity = component.Velocity(vector=vector)
-        self.acceleration = component.Acceleration(vector=(0, 0))
         self.energy = component.Energy(energy_max)
-        heading = self.velocity.get_heading_rad()
-        self.image, self.rect = module_fct.create_cell_image((255, 255, 255), (255, 0, 0), size, heading)
+        self.image, self.rect = module_fct.create_cell_image((255, 255, 255), (255, 0, 0), size, 0)
         self.rect.center = position
+        self.velocity = component.Vector(vector=vector)
+        self.acceleration = component.Propulsion(vector=(0, 0), cell=self)
 
     def __str__(self):
         return f'Cell {self.id}: life : [{self.energy.level} | {self.health.life}] ' \
@@ -28,17 +27,5 @@ class Cell(pygame.sprite.Sprite):
     def update(self, *args):
         self.rect.center = self.position.get_position()
 
-    def change_heading(self, heading):
-        """
-        Change cell's heading
-        :param heading:     [float] heading in rad
-        """
-        self.velocity.polar_vector = {
-            "r": self.velocity.polar_vector["r"],
-            "theta": heading
-        }
-        self.image, _ = module_fct.create_cell_image((255, 255, 255), (255, 0, 0), self.physic.size, heading)
-
-    def play(self):
-        self.change_heading(random.random() * 2 * math.pi)
-        print(f'Cell {self.id} new velocity : {self.velocity.polar_vector}')
+    def change_image(self, image):
+        self.image = image

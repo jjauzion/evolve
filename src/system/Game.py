@@ -19,7 +19,7 @@ def timer(funct):
         before = time.time()
         return_val = funct(*args)
         after = time.time()
-        print("{} sec spent in function {}".format(after - before, function))
+        print("{} sec spent in function {}".format(after - before, funct))
         return return_val
     return timed_func()
 
@@ -73,13 +73,17 @@ class Game:
                     # print(f'New heading = {cell.velocity.get_heading_deg()}')
         elif self.selected_cell is not None and event.type == const.KEYDOWN and event.key in direction_key:
             if event.key == const.K_UP:
-                self.selected_cell.acceleration._vector[1] = -1
+                self.selected_cell.acceleration.increase_norm(1)
+                print(f'Cell {self.selected_cell.id} new accel: {self.selected_cell.acceleration.get_norm()}')
             elif event.key == const.K_DOWN:
-                self.selected_cell.acceleration._vector[1] = 1
+                self.selected_cell.acceleration.increase_norm(-1)
+                print(f'Cell {self.selected_cell.id} new accel: {self.selected_cell.acceleration.get_norm()}')
             elif event.key == const.K_LEFT:
-                self.selected_cell.acceleration._vector[0] = -1
+                self.selected_cell.acceleration.increase_heading(10 * math.pi / 180.)
+                print(f'Cell {self.selected_cell.id} heading changed to {self.selected_cell.acceleration.get_heading_deg()}')
             elif event.key == const.K_RIGHT:
-                self.selected_cell.acceleration._vector[0] = 1
+                self.selected_cell.acceleration.increase_heading(-10 * math.pi / 180.)
+                print(f'Cell {self.selected_cell.id} heading changed to {self.selected_cell.acceleration.get_heading_deg()}')
 
     def exe_cycle(self):
         before = time.time()

@@ -19,7 +19,6 @@ class EnergySystem:
                 if entity.energy.level > cost:
                     new_velocity = module_fct.sum_vector(entity.velocity.vector, entity.acceleration.vector)
                     entity.velocity.vector = new_velocity
-                    entity.change_heading(entity.velocity.get_heading_rad())
                     entity.energy.level -= cost
                     print(f'Cell {entity.id} lost {cost} energy')
-                entity.acceleration.vector = (0, 0)
+                entity.acceleration.set_norm(0)
